@@ -6,33 +6,24 @@ import { BsPerson, BsFillPersonFill } from 'react-icons/bs';
 import Button from '../Form/Button';
 import useBooking from '../../hooks/api/useBooking';
 
-function ShowVacancies({ vacancies, filled, picked }) {
+function ShowVacancies({ vacancies, filled, picked = '' }) {
   const view = [];
-  if (picked) {
+  if (picked === 'picked') {
     filled++;
   }
   for (let i = 1; i <= vacancies; i++) {
     if (i > filled) {
-      view.unshift(true);
+      view.unshift({ occupied: true, class: '' });
       continue;
     }
-    view.unshift(false);
-  }
-
-  if (picked) {
-    return (
-      <>
-        {view.map((e, index) => e ?
-          <BsPerson key={index} /> :
-          <BsFillPersonFill className='picked' key={index} />)}
-      </>
-    );
+    view.push({ occupied: false, class: picked });
+    picked = '';
   }
   return (
     <>
-      {view.map((e, index) => e ?
+      {view.map((e, index) => e.occupied ?
         <BsPerson key={index} /> :
-        <BsFillPersonFill key={index} />)}
+        <BsFillPersonFill className={e.class} key={index} />)}
     </>
   );
 }
@@ -59,7 +50,7 @@ function Rooms({ room, filled, pickedUser, setPickedUser }) {
         }} key={room.id}>
         {room.name} <span><ShowVacancies vacancies={room.capacity}
           filled={filled}
-          picked={room.id === pickedUser ? true : false} /></span>
+          picked={room.id === pickedUser ? 'picked' : ''} /></span>
       </StyledRooms>
     </>
   );
@@ -72,7 +63,7 @@ export default function ContainerRooms({ rooms }) {
 
   const { postBooking } = useBooking();
   useEffect(() => {
-    if (pickedUser !== 0) {
+    if (pickedUser !== 0 && reserve) {
       const promise = postBooking({ roomId: pickedUser });
       promise
         .then((res) => {
@@ -101,7 +92,7 @@ export default function ContainerRooms({ rooms }) {
                 setPickedUser={setPickedUser} />)}
           </div>
           {pickedUser > 0 ?
-            <StyledButton onClick={() => setReserve(!reserve)}>
+            <StyledButton onClick={() => setReserve(true)}>
               RESERVAR QUARTO
             </StyledButton>
             : ''}
@@ -141,6 +132,7 @@ const StyledContainerRooms = styled.div`
   .picked{
     color: #FF4791;
   }
+  
 `;
 
 const StyledRooms = styled.div`
