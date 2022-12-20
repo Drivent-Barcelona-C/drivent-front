@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { BsPerson, BsFillPersonFill } from 'react-icons/bs';
 import Button from '../Form/Button';
 import useBooking from '../../hooks/api/useBooking';
@@ -66,13 +68,22 @@ function Rooms({ room, filled, pickedUser, setPickedUser }) {
 export default function ContainerRooms({ rooms }) {
   const [pickedUser, setPickedUser] = useState(0);
   const [reserve, setReserve] = useState(false);
+  const navigate = useNavigate();
 
   const { postBooking } = useBooking();
   useEffect(() => {
     if (pickedUser !== 0) {
       const promise = postBooking({ roomId: pickedUser });
       promise
-        .then((res) => console.log(res));
+        .then((res) => {
+          toast('Quarto reservado com sucesso!');
+          setPickedUser(0);
+          navigate('/dashboard');
+        })
+        .catch(() => {
+          toast('Não foi possivel reservar quarto!');
+          setPickedUser(0);
+        });
     }
   }, [reserve]);
 
