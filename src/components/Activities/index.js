@@ -1,25 +1,9 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import DateFnsUtils from '@date-io/date-fns';
 import Typography from '@material-ui/core/Typography';
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
-import CustomParseFormat from 'dayjs/plugin/customParseFormat';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MenuItem from '@material-ui/core/MenuItem';
 
-import useCep from '../../hooks/api/useCep';
-import useSaveEnrollment from '../../hooks/api/useSaveEnrollment';
-import { useForm } from '../../hooks/useForm';
-
-import Input from '../Form/Input';
-import Button from '../Form/Button';
-import Select from '../../components/Form/Select';
 import AccessDeniedNotPaid from './AccessDeniedNotPaid';
 import AccessDeniedRemote from './AccessDeniedRemote';
 import ActivitiesSchedule from './ActivitiesSchedule';
-
-dayjs.extend(CustomParseFormat);
 
 export default function ActivitiesList() {
   //const { ticket } = useTicket(); -puxar o ticket da API

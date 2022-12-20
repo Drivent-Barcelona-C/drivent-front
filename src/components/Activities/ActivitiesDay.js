@@ -1,27 +1,38 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useContext } from 'react';
+import api from '../../services/api';
+import useToken from '../../hooks/useToken';
+import ActivitiesContext from '../../contexts/ActivitiesContext';
+import dayjs from 'dayjs';
+
+dayjs.locale('pt-br');
 
 export default function ActivitiesDay({ data }) {
-  const [ selected, setSelected ] = useState(false);
+  const token = useToken();
+  const { setActivities } = useContext(ActivitiesContext);
 
-  function selectDay() {
-    setSelected(!selected);
-    if (selected) {
-      //get activities daquele dia
-      return;
-    } else {
-      //setActivities em branco
+  async function listActivities() {
+    try {
+      const response = await api.get('/activities', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      const dayActivities = response.data.filter((res) => new Date(res.startHour).toLocaleDateString() === data.toLocaleDateString());
+      return setActivities(dayActivities);
+    } catch (error) {
+      console.error(error);
+      setActivities([]);
     }
-    setSelected(!selected);
   }
 
   return (
-    <Day selected={selected} onClick={() => selectDay()}>{data}</Day>
+    <Day onClick={() => listActivities()}>{dayjs(data).format('ddd, DD/MM')}</Day>
   );
 }
 
-const Day = styled.div`
-  background-color: ${props => props.selected ? '#FFD37D' : '#E0E0E0'};
+const Day = styled.button`
+  background-color: #E0E0E0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   color: #000000;
@@ -32,5 +43,14 @@ const Day = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    filter:brightness(0.8);
+  }
+
+  &:focus {
+    background-color: #FFD37D;
+    border-style: outset;
+  }
 `;
 
