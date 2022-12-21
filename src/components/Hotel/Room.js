@@ -3,36 +3,30 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BsPerson, BsFillPersonFill } from 'react-icons/bs';
-import Button from '../Form/Button';
-import useBooking from '../../hooks/api/useBooking';
 
-function ShowVacancies({ vacancies, filled, picked }) {
+import StyledButton from './StyledButton';
+
+import useCreateBooking from '../../hooks/api/useCreateBooking';
+import useChangeBooking from '../../hooks/api/useChangeBooking';
+
+function ShowVacancies({ vacancies, filled, picked = '' }) {
   const view = [];
-  if (picked) {
+  if (picked === 'picked') {
     filled++;
   }
   for (let i = 1; i <= vacancies; i++) {
     if (i > filled) {
-      view.unshift(true);
+      view.unshift({ occupied: true, class: '' });
       continue;
     }
-    view.unshift(false);
-  }
-
-  if (picked) {
-    return (
-      <>
-        {view.map((e, index) => e ?
-          <BsPerson key={index} /> :
-          <BsFillPersonFill className='picked' key={index} />)}
-      </>
-    );
+    view.push({ occupied: false, class: picked });
+    picked = '';
   }
   return (
     <>
-      {view.map((e, index) => e ?
+      {view.map((e, index) => e.occupied ?
         <BsPerson key={index} /> :
-        <BsFillPersonFill key={index} />)}
+        <BsFillPersonFill className={e.class} key={index} />)}
     </>
   );
 }
@@ -59,26 +53,32 @@ function Rooms({ room, filled, pickedUser, setPickedUser }) {
         }} key={room.id}>
         {room.name} <span><ShowVacancies vacancies={room.capacity}
           filled={filled}
-          picked={room.id === pickedUser ? true : false} /></span>
+          picked={room.id === pickedUser ? 'picked' : ''} /></span>
       </StyledRooms>
     </>
   );
 }
 
-export default function ContainerRooms({ rooms }) {
+export default function ContainerRooms({
+  rooms,
+  changeRoom = false,
+  setChangeRoom,
+  bookingUser,
+}) {
   const [pickedUser, setPickedUser] = useState(0);
   const [reserve, setReserve] = useState(false);
+  const [change, setChange] = useState(false);
   const navigate = useNavigate();
 
-  const { postBooking } = useBooking();
+  const { postBooking } = useCreateBooking();
   useEffect(() => {
-    if (pickedUser !== 0) {
+    if (pickedUser !== 0 && reserve) {
       const promise = postBooking({ roomId: pickedUser });
       promise
         .then((res) => {
           toast('Quarto reservado com sucesso!');
           setPickedUser(0);
-          navigate('/dashboard');
+          window.location.assign('/dashboard/hotel');
         })
         .catch(() => {
           toast('Não foi possivel reservar quarto!');
@@ -86,6 +86,26 @@ export default function ContainerRooms({ rooms }) {
         });
     }
   }, [reserve]);
+  const { putBooking } = useChangeBooking();
+  useEffect(() => {
+    if (pickedUser !== 0 && change) {
+      const promise = putBooking({
+        bookingId: bookingUser.id,
+        roomId: pickedUser
+      });
+      promise
+        .then((res) => {
+          toast('Quarto reservado com sucesso!');
+          setPickedUser(0);
+          navigate('/dashboard/hotel');
+          setChangeRoom(false);
+        })
+        .catch(() => {
+          toast('Não foi possivel reservar quarto!');
+          setPickedUser(0);
+        });
+    }
+  }, [change]);
 
   return (
     <StyledContainerRooms >
@@ -100,11 +120,26 @@ export default function ContainerRooms({ rooms }) {
                 pickedUser={pickedUser}
                 setPickedUser={setPickedUser} />)}
           </div>
-          {pickedUser > 0 ?
-            <StyledButton onClick={() => setReserve(!reserve)}>
-              RESERVAR QUARTO
-            </StyledButton>
-            : ''}
+          {changeRoom ?
+            <>
+              {pickedUser > 0 ?
+                <StyledButton onClick={() => {
+                  setChange(true);
+                }}>
+                  RESERVAR QUARTO
+                </StyledButton>
+                : ''}
+            </> :
+            <>
+              {pickedUser > 0 ?
+                <StyledButton onClick={() => {
+                  setReserve(true);
+                }}>
+                  RESERVAR QUARTO
+                </StyledButton>
+                : ''}
+            </>
+          }
         </>
         : ''}
     </StyledContainerRooms>
@@ -141,6 +176,7 @@ const StyledContainerRooms = styled.div`
   .picked{
     color: #FF4791;
   }
+  margin-top: 36px;
 `;
 
 const StyledRooms = styled.div`
@@ -158,18 +194,4 @@ const StyledRooms = styled.div`
   justify-content: space-between;
   padding: 0 12px;
   margin-right: 12px;
-`;
-
-const StyledButton = styled(Button)`
-  width: 182px;
-  height: 37px;
-  background: #E0E0E0;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  font-family: 'Roboto';
-  font-weight: 400;
-  font-size: 14px;
-  text-align: center;
-  color: #000000;
-  margin-top: 46px !important;
 `;
