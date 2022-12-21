@@ -1,14 +1,17 @@
 import { Title } from '../../../components/Auth';
 import useEnrollment from '../../../hooks/api/useEnrollment';
 import useHasTicket from '../../../hooks/api/useHasTicket';
+import useTicketTypes from '../../../hooks/api/useTicketTypes';
 import styled from 'styled-components';
-import React from 'react';
 import PaymentScreen from './PaymentScreen';
+import Ticket from './Ticket';
 
 function PaymentOrTicketScreen() {
   const { ticket } = useHasTicket();
-  return <>{ticket ? <PaymentScreen ticket={ticket} /> : 'SEM TICKET'}</>;
-}
+  const { ticketType, ticketTypeFinish } = useTicketTypes();
+
+  return (<>{ticket ? <PaymentScreen ticket={ticket} /> : <Ticket ticketType={ticketType} ticketTypeFinish={ticketTypeFinish} />}</>);
+};
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
