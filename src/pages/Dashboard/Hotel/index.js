@@ -1,25 +1,57 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import ContainerRooms from '../../../components/Hotel/Room';
-
-import useHotel from '../../../hooks/api/useHotel';
+import useHasTicket from '../../../hooks/api/useHasTicket';
+import styled from 'styled-components';
+import ChooseHotel from './ChooseHotel';
 
 export default function Hotel() {
-  const [pickedHotel, setPickedUser] = useState(0);
+  const { ticket } = useHasTicket();
 
-  const [hotels, setHotels] = useState([]);
-
-  const { getHotel } = useHotel();
-
-  useEffect(() => {
-    const promise = getHotel();
-    promise
-      .then((res) => setHotels(res));
-  }, [pickedHotel]);
+  if (!ticket?.TicketType?.includesHotel) {
+    return (
+      <>
+        <Main> Escolha hotel e quarto</Main>
+        <Container>
+          <NoPayment>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</NoPayment>
+        </Container>
+      </>
+    );
+  }
 
   return (
     <>
-      {hotels.length !== 0 ? <ContainerRooms rooms={hotels[0].Rooms} /> : ''}
+      <Main> Escolha hotel e quarto</Main>
+      {ticket.status === 'PAID' ? (
+        <ChooseHotel />
+      ) : (
+        <Container>
+          <NoPayment>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</NoPayment>
+        </Container>
+      )}
     </>
   );
 }
+
+const Main = styled.div`
+  font-family: Roboto;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: left;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Roboto;
+`;
+
+const NoPayment = styled.div`
+  text-align: center;
+  font-size: 20px;
+  width: 53%;
+  color: #8e8e8e;
+`;

@@ -11,7 +11,7 @@ import { useState } from 'react';
 export default function PaymentScreen({ ticket }) {
   const { postPayment, paymentLoading } = useProcessPayment();
   const [status, setStatus] = useState(false);
-  useEffect(() => {}, [status]);
+  useEffect(() => { }, [status]);
 
   return (
     <>
@@ -39,8 +39,8 @@ export default function PaymentScreen({ ticket }) {
           paymentLoading={paymentLoading}
           setStatus={setStatus}
         />
-      )}
-    </>
+      )} </>
+
   );
 }
 
