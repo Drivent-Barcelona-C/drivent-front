@@ -34,7 +34,7 @@ export default function ChooseHotel() {
 
   if (statusBooking) {
     let hotelId = 0;
-    hotels.map((hotel, index) => {
+    hotels.forEach((hotel, index) => {
       if (hotel.id === bookingUser.Room.hotelId) {
         hotelId = index;
       }

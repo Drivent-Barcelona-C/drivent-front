@@ -194,4 +194,7 @@ const StyledRooms = styled.div`
   justify-content: space-between;
   padding: 0 12px;
   margin-right: 12px;
+  &:hover{
+    background-color:#FFEED2;
+  }
 `;
