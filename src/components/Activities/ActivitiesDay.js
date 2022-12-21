@@ -3,11 +3,11 @@ import { useContext } from 'react';
 import api from '../../services/api';
 import useToken from '../../hooks/useToken';
 import ActivitiesContext from '../../contexts/ActivitiesContext';
+
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 
-dayjs.locale('pt-br');
-
-export default function ActivitiesDay({ data }) {
+export default function ActivitiesDay({ date }) {
   const token = useToken();
   const { setActivities } = useContext(ActivitiesContext);
 
@@ -18,7 +18,7 @@ export default function ActivitiesDay({ data }) {
           Authorization: `Bearer ${token}`,
         }
       });
-      const dayActivities = response.data.filter((res) => new Date(res.startHour).toLocaleDateString() === data.toLocaleDateString());
+      const dayActivities = response.data[date];
       return setActivities(dayActivities);
     } catch (error) {
       console.error(error);
@@ -27,7 +27,7 @@ export default function ActivitiesDay({ data }) {
   }
 
   return (
-    <Day onClick={() => listActivities()}>{dayjs(data).format('ddd, DD/MM')}</Day>
+    <Day onClick={() => listActivities()}>{dayjs(date).locale('pt-br').format('ddd, DD/MM')}</Day>
   );
 }
 
@@ -51,6 +51,10 @@ const Day = styled.button`
   &:focus {
     background-color: #FFD37D;
     border-style: outset;
+
+    &:hover {
+      filter: none;
+    }
   }
 `;
 
