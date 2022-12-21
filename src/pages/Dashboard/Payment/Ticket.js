@@ -72,10 +72,7 @@ export default function Ticket({ ticketType, ticketTypeFinish, setStatus }) {
       } else if (ticketTypes === false) {
         await postReservation({ ticketTypeId: online[0].id });
       };
-      toast('Reserva realizada com sucesso.');
-      setTimeout(() => {
-        window.location.assign('/dashboard/payment');
-      }, 2000);
+      window.location.assign('/dashboard/payment');
     } catch (error) {
       toast('Não foi possivel realizar a reserva.');
     }
