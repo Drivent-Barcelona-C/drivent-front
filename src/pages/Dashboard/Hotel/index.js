@@ -1,29 +1,32 @@
 import { useEffect, useState } from 'react';
+import useHasTicket from '../../../hooks/api/useHasTicket';
 import styled from 'styled-components';
-import { getTicket } from '../../../services/ticketApi';
 import ChooseHotel from './ChooseHotel';
-import { getTokenStoraged } from '../../../hooks/useToken';
 
 export default function Hotel() {
-  const [ticket, setTicket] = useState('');
-  const token = getTokenStoraged();
+  const { ticket } = useHasTicket();
 
-  useEffect(() => {
-    getTicket(token).then((res) => {
-      setTicket(res);
-    });
-  }, []);
+  if (!ticket?.TicketType?.includesHotel) {
+    return (
+      <>
+        <Main> Escolha hotel e quarto</Main>
+        <Container>
+          <NoPayment>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</NoPayment>
+        </Container>
+      </>
+    );
+  }
 
   return (
     <>
       <Main> Escolha hotel e quarto</Main>
-      <Container>
-        {ticket.status === 'PAID' ? (
-          <ChooseHotel TicketType={ticket.TicketType} />
-        ) : (
+      {ticket.status === 'PAID' ? (
+        <ChooseHotel />
+      ) : (
+        <Container>
           <NoPayment>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</NoPayment>
-        )}
-      </Container>
+        </Container>
+      )}
     </>
   );
 }

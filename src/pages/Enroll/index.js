@@ -19,9 +19,8 @@ export default function Enroll() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { loadingSignUp, signUp } = useSignUp();
-
   const navigate = useNavigate();
-  
+
   const { eventInfo } = useContext(EventInfoContext);
 
   async function submit(event) {
@@ -49,10 +48,24 @@ export default function Enroll() {
       <Row>
         <Label>Inscrição</Label>
         <form onSubmit={submit}>
-          <Input label="E-mail" type="text" fullWidth value={email} onChange={e => setEmail(e.target.value)} />
-          <Input label="Senha" type="password" fullWidth value={password} onChange={e => setPassword(e.target.value)} />
-          <Input label="Repita sua senha" type="password" fullWidth value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-          <Button type="submit" color="primary" fullWidth disabled={loadingSignUp}>Inscrever</Button>
+          <Input label="E-mail" type="text" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input
+            label="Senha"
+            type="password"
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            label="Repita sua senha"
+            type="password"
+            fullWidth
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <Button type="submit" color="primary" fullWidth disabled={loadingSignUp}>
+            Inscrever
+          </Button>
         </form>
       </Row>
       <Row>

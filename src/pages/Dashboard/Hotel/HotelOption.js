@@ -12,19 +12,20 @@ export default function HotelOption({
   rooms,
   vacancies,
   avaiable,
+  setPickedHotel,
+  index,
 }) {
   function toggle(id) {
-    let index = selected.findIndex((i) => i === id);
+    let myIndex = selected.findIndex((i) => i === id);
     let hotelsSelecteds = [...selected];
-    if (index !== -1) {
-      hotelsSelecteds.splice(index, 1);
+    if (myIndex !== -1) {
+      hotelsSelecteds.splice(myIndex, 1);
     } else {
       multiple ? hotelsSelecteds.push(id) : (hotelsSelecteds = [hotelId]);
     }
     setSelected(hotelsSelecteds);
-    console.log(rooms);
+    setPickedHotel(index);
   }
-
   let filteredType = avaiable.filter((type) => type !== false);
 
   return (
