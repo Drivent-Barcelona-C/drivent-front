@@ -4,11 +4,11 @@ export default function ResumeBooking({
   hotel,
   bookingUser,
 }) {
-  let personRoom = 1;
+  let peopleRoom = 1;
   hotel.Rooms.map(room => {
     room.Booking.map(b => {
       if (b.id === bookingUser.id) {
-        personRoom = room.Booking.length;
+        peopleRoom = room.Booking.length;
       }
     });
   });
@@ -33,7 +33,7 @@ export default function ResumeBooking({
         <h2>Quarto reservado</h2>
         <h3>{bookingUser.Room.name} ({typeRoom(bookingUser.Room.capacity)})</h3>
         <h2>Pessoas no seu quarto</h2>
-        {personRoom === 1 ? <h3>Somente você</h3> : <h3>Você e mais {personRoom - 1} </h3>}
+        {peopleRoom === 1 ? <h3>Somente você</h3> : <h3>Você e mais {peopleRoom - 1} </h3>}
       </ShowResume>
     </ContainerResume>);
 }
@@ -47,6 +47,7 @@ const ContainerResume = styled.div`
     color: #8E8E8E;
     max-width: 812px;
   }
+  margin-top: 36px;
 `;
 
 const ShowResume = styled.div`

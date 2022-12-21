@@ -176,7 +176,7 @@ const StyledContainerRooms = styled.div`
   .picked{
     color: #FF4791;
   }
-  
+  margin-top: 36px;
 `;
 
 const StyledRooms = styled.div`

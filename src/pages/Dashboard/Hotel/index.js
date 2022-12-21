@@ -1,62 +1,61 @@
-import { useState, useEffect } from 'react';
-
-import ContainerRooms from '../../../components/Hotel/Room';
-import ResumeBooking from '../../../components/Hotel/ResumeBooking';
-import StyledButton from '../../../components/Hotel/StyledButton';
-
-import useHotel from '../../../hooks/api/useHotel';
-import useBooking from '../../../hooks/api/useBooking';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import ChooseHotel from './ChooseHotel';
 
 export default function Hotel() {
-  const [pickedHotel, setPickedHotel] = useState(1);
-  const [bookingUser, setBookingUser] = useState({});
-  const [statusBooking, setStatusBooking] = useState(false);
-  const [changeRoom, setChangeRoom] = useState(false);
-  const [hotels, setHotels] = useState([]);
-
-  const { getHotel } = useHotel();
-  const { getBooking } = useBooking();
+  const [ticket, setTicket] = useState({ status: 'RESERVED', TicketType: { includesHotel: false } });
 
   useEffect(() => {
-    if (pickedHotel !== 0) {
-      const promise = getHotel();
-      promise
-        .then((res) => setHotels(res));
-    }
-  }, [pickedHotel, changeRoom]);
+    setTicket({ status: 'PAID', TicketType: { includesHotel: true } });
+  }, []);
 
-  useEffect(() => {
-    const promise = getBooking();
-    promise
-      .then((res) => {
-        setBookingUser(res);
-        setStatusBooking(true);
-      });
-  }, [changeRoom]);
-  if (statusBooking) {
+  if (!ticket.TicketType.includesHotel) {
     return (
       <>
-        {changeRoom ?
-          <ContainerRooms rooms={hotels[0].Rooms}
-            changeRoom={changeRoom}
-            setChangeRoom={setChangeRoom}
-            bookingUser={bookingUser} /> :
-          <>
-            {hotels.length !== 0 ? <ResumeBooking
-              hotel={hotels[0]}
-              bookingUser={bookingUser} /> : ''}
-            <StyledButton onClick={() => setChangeRoom(true)}>
-              TROCAR QUARTO
-            </StyledButton>
-          </>}
+        <Main> Escolha hotel e quarto</Main>
+        <Container>
+          <NoPayment>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</NoPayment>
+        </Container>
       </>
     );
   }
 
   return (
     <>
-      {hotels.length !== 0 ? <ContainerRooms
-        rooms={hotels[0].Rooms} /> : ''}
+      <Main> Escolha hotel e quarto</Main>
+      {ticket.status === 'PAID' ? (
+        <ChooseHotel />
+      ) : (
+        <Container>
+          <NoPayment>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</NoPayment>
+        </Container>
+      )}
     </>
   );
 }
+
+const Main = styled.div`
+  font-family: Roboto;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: left;
+`;
+
+const Container = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Roboto;
+`;
+
+const NoPayment = styled.div`
+  text-align: center;
+  font-size: 20px;
+  width: 53%;
+  color: #8e8e8e;
+`;
