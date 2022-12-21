@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
+import useHasTicket from '../../../hooks/api/useHasTicket';
 import styled from 'styled-components';
 import ChooseHotel from './ChooseHotel';
 
 export default function Hotel() {
-  const [ticket, setTicket] = useState({ status: 'RESERVED', TicketType: { includesHotel: false } });
+  const { ticket } = useHasTicket();
 
-  useEffect(() => {
-    setTicket({ status: 'PAID', TicketType: { includesHotel: true } });
-  }, []);
-
-  if (!ticket.TicketType.includesHotel) {
+  if (!ticket?.TicketType?.includesHotel) {
     return (
       <>
         <Main> Escolha hotel e quarto</Main>
