@@ -15,7 +15,6 @@ export default function ChooseHotel() {
   const [hotels, setHotels] = useState([]);
   const [selected, setSelected] = useState([]);
   let [color, setColor] = useState('#EBEBEB');
-  console.log(pickedHotel);
 
   const { getHotel } = useHotel();
   const { getBooking } = useBooking();
@@ -61,11 +60,11 @@ export default function ChooseHotel() {
 
   return (
     <>
-      {hotels.length !== 0 ? (
+      {hotels.length !== 0 ?
         <>
-          {pickedHotel < 0 ? (
-            <IncludesHotel>
-              <p>Primeiro, escolha seu hotel</p>
+          <IncludesHotel>
+            <p>Primeiro, escolha seu hotel</p>
+            <ContainerHotels>
               {hotels.map((hotel, index) => (
                 <HotelOption
                   name={hotel.name}
@@ -82,14 +81,13 @@ export default function ChooseHotel() {
                   setPickedHotel={setPickedHotel}
                 />
               ))}
-            </IncludesHotel>
-          ) : (
-            <ContainerRooms rooms={hotels[pickedHotel].Rooms} />
-          )}
+            </ContainerHotels>
+          </IncludesHotel>
+          {pickedHotel >= 0 ? <ContainerRooms rooms={hotels[pickedHotel].Rooms} /> : ''}
         </>
-      ) : (
-        ''
-      )}
+        : (
+          ''
+        )}
     </>
   );
 }
@@ -99,9 +97,14 @@ const IncludesHotel = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90%;
+  
   p {
     color: #8e8e8e;
     font-size: 20px;
   }
+`;
+
+const ContainerHotels = styled.div`
+  display:flex;
+  flex-wrap: wrap;
 `;
