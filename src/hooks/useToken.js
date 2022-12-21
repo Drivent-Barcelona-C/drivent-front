@@ -7,3 +7,7 @@ export default function useToken() {
 
   return user.token;
 }
+
+export function getTokenStoraged() {
+  return JSON.parse(localStorage.getItem('token'));
+}

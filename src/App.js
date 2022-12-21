@@ -29,7 +29,21 @@ export default function App() {
         <UserProvider>
           <Router>
             <Routes>
-              <Route path="/" element={<Countdown />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <Dashboard />
+                }
+              >
+                <Route path="subscription" element={<FillSubscription />} />
+                <Route path="payment" element={<Payment />} />
+                <Route path="hotel" element={<Hotel />} />
+                <Route path="activities" element={<Activities />} />
+                <Route path="certificate" element={<Certificate />} />
+                <Route index path="*" element={<Navigate to="/dashboard/subscription" />} />
+              </Route>
+            
+              {/* <Route path="/" element={<Countdown />} />
               <Route path="/enroll" element={<Enroll />} />
               <Route path="/sign-in" element={<SignIn />} />
 
@@ -47,7 +61,7 @@ export default function App() {
                 <Route path="activities" element={<Activities />} />
                 <Route path="certificate" element={<Certificate />} />
                 <Route index path="*" element={<Navigate to="/dashboard/subscription" />} />
-              </Route>
+              </Route> */}
             </Routes>
           </Router>
         </UserProvider>
