@@ -65,6 +65,7 @@ export default function ChooseHotel() {
                         vacancies={hotel.vacancies}
                         avaiable={hotel.types}
                         setPickedHotel={setPickedHotel}
+                        pickedHotel={pickedHotel}
                       />
                     ))}
                   </ContainerHotels>
@@ -114,6 +115,7 @@ export default function ChooseHotel() {
                   vacancies={hotel.vacancies}
                   avaiable={hotel.types}
                   setPickedHotel={setPickedHotel}
+                  pickedHotel={pickedHotel}
                 />
               ))}
             </ContainerHotels>

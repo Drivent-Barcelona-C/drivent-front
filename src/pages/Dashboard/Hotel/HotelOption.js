@@ -11,6 +11,7 @@ export default function HotelOption({
   vacancies,
   avaiable,
   setPickedHotel,
+  pickedHotel,
   index,
 }) {
   function toggle(id) {
@@ -22,6 +23,10 @@ export default function HotelOption({
       multiple ? hotelsSelecteds.push(id) : (hotelsSelecteds = [hotelId]);
     }
     setSelected(hotelsSelecteds);
+    if (index === pickedHotel) {
+      setPickedHotel(-1);
+      return;
+    }
     setPickedHotel(index);
   }
   let filteredType = avaiable.filter((type) => type !== false);
