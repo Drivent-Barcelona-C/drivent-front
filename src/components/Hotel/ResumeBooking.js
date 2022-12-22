@@ -5,8 +5,8 @@ export default function ResumeBooking({
   bookingUser,
 }) {
   let peopleRoom = 1;
-  hotel.Rooms.map(room => {
-    room.Booking.map(b => {
+  hotel.Rooms.forEach(room => {
+    room.Booking.forEach(b => {
       if (b.id === bookingUser.id) {
         peopleRoom = room.Booking.length;
       }
@@ -28,7 +28,7 @@ export default function ResumeBooking({
     <ContainerResume>
       <p>Você já escolheu seu quarto:</p>
       <ShowResume>
-        <img src={hotel.image} alt='Image Hotel.' />
+        <img src={hotel.image} aria-hidden alt='Image Hotel.' />
         <h1>{hotel.name}</h1>
         <h2>Quarto reservado</h2>
         <h3>{bookingUser.Room.name} ({typeRoom(bookingUser.Room.capacity)})</h3>

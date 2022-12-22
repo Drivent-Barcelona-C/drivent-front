@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 import ContainerRooms from '../../../components/Hotel/Room';
 import ResumeBooking from '../../../components/Hotel/ResumeBooking';
 import StyledButton from '../../../components/Hotel/StyledButton';
@@ -14,14 +15,17 @@ export default function ChooseHotel() {
   const [changeRoom, setChangeRoom] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [selected, setSelected] = useState([]);
-  let [color, setColor] = useState('#EBEBEB');
 
   const { getHotel } = useHotel();
   const { getBooking } = useBooking();
 
   useEffect(() => {
     const promise = getHotel();
-    promise.then((res) => setHotels(res));
+    promise
+      .then((res) => setHotels(res))
+      .catch(() => {
+        toast('Não foi possível encontrar Hoteis.');
+      });
   }, [changeRoom]);
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export default function ChooseHotel() {
 
   if (statusBooking) {
     let hotelId = 0;
-    hotels.map((hotel, index) => {
+    hotels.forEach((hotel, index) => {
       if (hotel.id === bookingUser.Room.hotelId) {
         hotelId = index;
       }
@@ -42,12 +46,44 @@ export default function ChooseHotel() {
     return (
       <>
         {changeRoom ? (
-          <ContainerRooms
-            rooms={hotels[hotelId].Rooms}
-            changeRoom={changeRoom}
-            setChangeRoom={setChangeRoom}
-            bookingUser={bookingUser}
-          />
+          <>
+            {hotels.length !== 0 ? (
+              <>
+                <IncludesHotel>
+                  <Title>Primeiro, escolha seu hotel</Title>
+                  <ContainerHotels>
+                    {hotels.map((hotel, index) => (
+                      <HotelOption
+                        name={hotel.name}
+                        image={hotel.image}
+                        hotelId={hotel.id}
+                        key={index}
+                        index={index}
+                        selected={selected}
+                        setSelected={setSelected}
+                        rooms={hotel.Rooms}
+                        vacancies={hotel.vacancies}
+                        avaiable={hotel.types}
+                        setPickedHotel={setPickedHotel}
+                      />
+                    ))}
+                  </ContainerHotels>
+                </IncludesHotel>
+                {pickedHotel >= 0 ? (
+                  <ContainerRooms
+                    rooms={hotels[pickedHotel].Rooms}
+                    changeRoom={changeRoom}
+                    setChangeRoom={setChangeRoom}
+                    bookingUser={bookingUser}
+                  />
+                ) : (
+                  ''
+                )}
+              </>
+            ) : (
+              ''
+            )}
+          </>
         ) : (
           <>
             {hotels.length !== 0 ? <ResumeBooking hotel={hotels[hotelId]} bookingUser={bookingUser} /> : ''}
@@ -62,31 +98,27 @@ export default function ChooseHotel() {
     <>
       {hotels.length !== 0 ? (
         <>
-          {pickedHotel < 0 ? (
-            <IncludesHotel>
-              <Title>Primeiro, escolha seu hotel</Title>
-              <ContainerHotels>
-                {hotels.map((hotel, index) => (
-                  <HotelOption
-                    name={hotel.name}
-                    image={hotel.image}
-                    hotelId={hotel.id}
-                    key={index}
-                    index={index}
-                    color={color}
-                    selected={selected}
-                    setSelected={setSelected}
-                    rooms={hotel.Rooms}
-                    vacancies={hotel.vacancies}
-                    avaiable={hotel.types}
-                    setPickedHotel={setPickedHotel}
-                  />
-                ))}
-              </ContainerHotels>
-            </IncludesHotel>
-          ) : (
-            <ContainerRooms rooms={hotels[pickedHotel].Rooms} />
-          )}
+          <IncludesHotel>
+            <Title>Primeiro, escolha seu hotel</Title>
+            <ContainerHotels>
+              {hotels.map((hotel, index) => (
+                <HotelOption
+                  name={hotel.name}
+                  image={hotel.image}
+                  hotelId={hotel.id}
+                  key={index}
+                  index={index}
+                  selected={selected}
+                  setSelected={setSelected}
+                  rooms={hotel.Rooms}
+                  vacancies={hotel.vacancies}
+                  avaiable={hotel.types}
+                  setPickedHotel={setPickedHotel}
+                />
+              ))}
+            </ContainerHotels>
+          </IncludesHotel>
+          {pickedHotel >= 0 ? <ContainerRooms rooms={hotels[pickedHotel].Rooms} /> : ''}
         </>
       ) : (
         ''
@@ -100,7 +132,6 @@ const IncludesHotel = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90%;
 `;
 
 const Title = styled.div`
@@ -110,12 +141,6 @@ const Title = styled.div`
 `;
 
 const ContainerHotels = styled.div`
-  margin: 0 auto;
   display: flex;
-  width: 100%;
-  height: 90%;
-  p {
-    color: #8e8e8e;
-    font-size: 20px;
-  }
+  flex-wrap: wrap;
 `;

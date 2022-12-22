@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import useHasTicket from '../../../hooks/api/useHasTicket';
 import styled from 'styled-components';
 import ChooseHotel from './ChooseHotel';

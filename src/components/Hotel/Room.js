@@ -95,13 +95,13 @@ export default function ContainerRooms({
       });
       promise
         .then((res) => {
-          toast('Quarto reservado com sucesso!');
+          toast('Troca realziado com sucesso!');
           setPickedUser(0);
           navigate('/dashboard/hotel');
           setChangeRoom(false);
         })
         .catch(() => {
-          toast('Não foi possivel reservar quarto!');
+          toast('Não foi possivel trocar o quarto!');
           setPickedUser(0);
         });
     }
@@ -194,4 +194,7 @@ const StyledRooms = styled.div`
   justify-content: space-between;
   padding: 0 12px;
   margin-right: 12px;
+  &:hover{
+    background-color:#FFEED2;
+  }
 `;

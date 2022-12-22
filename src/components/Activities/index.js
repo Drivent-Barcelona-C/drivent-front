@@ -1,41 +1,21 @@
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import useHasTicket from '../../hooks/api/useHasTicket';
+import useTicketTypes from '../../hooks/api/useTicketTypes';
 
 import AccessDeniedNotPaid from './AccessDeniedNotPaid';
 import AccessDeniedRemote from './AccessDeniedRemote';
 import ActivitiesSchedule from './ActivitiesSchedule';
 
 export default function ActivitiesList() {
-  //const { ticket } = useTicket(); -puxar o ticket da API
-  let ticket = null;
-
-  function fakeTicket(remote, hotel, status) {
-    const mockado = {
-      id: 2,
-      ticketTypeId: {
-        name: 'teste mockado',
-        price: 50000,
-        isRemote: remote,
-        includesHotel: hotel
-      },
-      enrollmentId: 1,
-      status: status
-    };
-
-    return mockado;
-  }
-
-  try {
-    ticket = fakeTicket(false, true, 'PAID');
-  } catch (error) {
-    console.error(error);
-  }
+  const { ticket } = useHasTicket();
+  const { ticketType } = useTicketTypes();
 
   function accessType() {
-    if (ticket.status === 'RESERVED') {
-      return <AccessDeniedNotPaid/>;
-    } else if (ticket.ticketTypeId.isRemote && ticket.status === 'PAID') {
+    if (ticketType && ticketType[0].isRemote) {
       return <AccessDeniedRemote/>;
+    } else if (ticket && ticket.status === 'RESERVED') {
+      return <AccessDeniedNotPaid/>;
     } else {
       return <ActivitiesSchedule/>;
     }

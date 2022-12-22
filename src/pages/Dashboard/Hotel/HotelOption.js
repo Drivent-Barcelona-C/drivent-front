@@ -4,7 +4,6 @@ export default function HotelOption({
   name,
   image,
   hotelId,
-  color,
   selected,
   setSelected,
   multiple = false,
@@ -29,10 +28,10 @@ export default function HotelOption({
 
   return (
     <Hotels
-      background={selected.findIndex((i) => i === hotelId) !== -1 ? (color = '#FFEED2') : (color = '#EBEBEB')}
+      background={selected.findIndex((i) => i === hotelId) !== -1 ? '#FFEED2' : '#EBEBEB'}
       onClick={() => toggle(hotelId)}
     >
-      <img src={image} />
+      <img src={image} aria-hidden alt="Image Hotel." />
       <Title>{name}</Title>
 
       <Accommodation>Tipos de acomodação:</Accommodation>
