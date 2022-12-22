@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
-
 import ContainerRooms from '../../../components/Hotel/Room';
 import ResumeBooking from '../../../components/Hotel/ResumeBooking';
 import StyledButton from '../../../components/Hotel/StyledButton';
 import HotelOption from './HotelOption';
-
 import useHotel from '../../../hooks/api/useHotel';
 import useBooking from '../../../hooks/api/useBooking';
 
@@ -17,7 +15,6 @@ export default function ChooseHotel() {
   const [changeRoom, setChangeRoom] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [selected, setSelected] = useState([]);
-  let [color, setColor] = useState('#EBEBEB');
 
   const { getHotel } = useHotel();
   const { getBooking } = useBooking();
@@ -50,10 +47,10 @@ export default function ChooseHotel() {
       <>
         {changeRoom ? (
           <>
-            {hotels.length !== 0 ?
+            {hotels.length !== 0 ? (
               <>
                 <IncludesHotel>
-                  <p>Primeiro, escolha seu hotel</p>
+                  <Title>Primeiro, escolha seu hotel</Title>
                   <ContainerHotels>
                     {hotels.map((hotel, index) => (
                       <HotelOption
@@ -62,7 +59,6 @@ export default function ChooseHotel() {
                         hotelId={hotel.id}
                         key={index}
                         index={index}
-                        color={color}
                         selected={selected}
                         setSelected={setSelected}
                         rooms={hotel.Rooms}
@@ -73,18 +69,21 @@ export default function ChooseHotel() {
                     ))}
                   </ContainerHotels>
                 </IncludesHotel>
-                {pickedHotel >= 0 ? <ContainerRooms
-                  rooms={hotels[pickedHotel].Rooms}
-                  changeRoom={changeRoom}
-                  setChangeRoom={setChangeRoom}
-                  bookingUser={bookingUser}
-                /> : ''}
+                {pickedHotel >= 0 ? (
+                  <ContainerRooms
+                    rooms={hotels[pickedHotel].Rooms}
+                    changeRoom={changeRoom}
+                    setChangeRoom={setChangeRoom}
+                    bookingUser={bookingUser}
+                  />
+                ) : (
+                  ''
+                )}
               </>
-              : (
-                ''
-              )}
+            ) : (
+              ''
+            )}
           </>
-
         ) : (
           <>
             {hotels.length !== 0 ? <ResumeBooking hotel={hotels[hotelId]} bookingUser={bookingUser} /> : ''}
@@ -97,10 +96,10 @@ export default function ChooseHotel() {
 
   return (
     <>
-      {hotels.length !== 0 ?
+      {hotels.length !== 0 ? (
         <>
           <IncludesHotel>
-            <p>Primeiro, escolha seu hotel</p>
+            <Title>Primeiro, escolha seu hotel</Title>
             <ContainerHotels>
               {hotels.map((hotel, index) => (
                 <HotelOption
@@ -109,7 +108,6 @@ export default function ChooseHotel() {
                   hotelId={hotel.id}
                   key={index}
                   index={index}
-                  color={color}
                   selected={selected}
                   setSelected={setSelected}
                   rooms={hotel.Rooms}
@@ -122,9 +120,9 @@ export default function ChooseHotel() {
           </IncludesHotel>
           {pickedHotel >= 0 ? <ContainerRooms rooms={hotels[pickedHotel].Rooms} /> : ''}
         </>
-        : (
-          ''
-        )}
+      ) : (
+        ''
+      )}
     </>
   );
 }
@@ -134,14 +132,15 @@ const IncludesHotel = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  
-  p {
-    color: #8e8e8e;
-    font-size: 20px;
-  }
+`;
+
+const Title = styled.div`
+  color: #8e8e8e;
+  font-size: 15px;
+  margin-top: 20px;
 `;
 
 const ContainerHotels = styled.div`
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
 `;
