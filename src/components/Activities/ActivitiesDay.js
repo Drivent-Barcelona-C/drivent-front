@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import api from '../../services/api';
 import useToken from '../../hooks/useToken';
 import ActivitiesContext from '../../contexts/ActivitiesContext';
@@ -7,7 +7,7 @@ import ActivitiesContext from '../../contexts/ActivitiesContext';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 
-export default function ActivitiesDay({ date }) {
+export default function ActivitiesDay({ date, activeDay, setActiveDay }) {
   const token = useToken();
   const { setActivities } = useContext(ActivitiesContext);
 
@@ -19,6 +19,7 @@ export default function ActivitiesDay({ date }) {
         }
       });
       const dayActivities = response.data[date];
+      setActiveDay(date);
       return setActivities(dayActivities);
     } catch (error) {
       console.error(error);
@@ -27,12 +28,18 @@ export default function ActivitiesDay({ date }) {
   }
 
   return (
-    <Day onClick={() => listActivities()}>{dayjs(date).locale('pt-br').format('ddd, DD/MM')}</Day>
+    <Day
+      onClick={() => listActivities()}
+      activeDay={activeDay === date}
+    >
+      {dayjs(date).locale('pt-br').format('ddd, DD/MM')}
+    </Day>
   );
 }
 
 const Day = styled.button`
-  background-color: #E0E0E0;
+  background-color: ${props => props.activeDay ? '#FFD37D' : '#E0E0E0'};
+  border-style: ${props => props.activeDay ? 'none' : ''};
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   color: #000000;
@@ -45,16 +52,7 @@ const Day = styled.button`
   align-items: center;
 
   &:hover {
-    filter:brightness(0.8);
-  }
-
-  &:focus {
-    background-color: #FFD37D;
-    border-style: outset;
-
-    &:hover {
-      filter: none;
-    }
+    ${props => props.activeDay ? 'none' : 'filter:brightness(0.8)'};
   }
 `;
 
