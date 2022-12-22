@@ -43,7 +43,8 @@ const Day = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  border: none;
+  
   &:hover {
     filter:brightness(0.8);
   }
@@ -51,7 +52,8 @@ const Day = styled.button`
   &:focus {
     background-color: #FFD37D;
     border-style: outset;
-
+    border: none;
+    
     &:hover {
       filter: none;
     }

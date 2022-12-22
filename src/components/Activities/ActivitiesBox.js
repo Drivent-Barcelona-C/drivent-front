@@ -1,25 +1,27 @@
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 
+import ShowActivity from './ShowActivity';
+
 export default function ActivitiesBox({ activities }) {
   return (
     <Main>
       <LocationBox>
         <Location variant="h6">Auditório Principal</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'AUDITORIO_PRINCIPAL')).map((value) => <>{value.name} <br /><br /></>)}
+          {(activities.filter(data => data.location === 'AUDITORIO_PRINCIPAL')).map((value) => <><ShowActivity activity={value} /> </>)}
         </ActivitiesWrapper>
       </LocationBox>
       <LocationBox>
         <Location variant="h6">Auditório Lateral</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'AUDITORIO_LATERAL')).map((value) => <>{value.name} <br /><br /></>)}
+          {(activities.filter(data => data.location === 'AUDITORIO_LATERAL')).map((value) => <><ShowActivity activity={value} /> </>)}
         </ActivitiesWrapper>
       </LocationBox>
       <LocationBox>
         <Location variant="h6">Sala de Workshop</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'SALA_DE_WORKSHOP')).map((value) => <>{value.name} <br /><br /></>)}
+          {(activities.filter(data => data.location === 'SALA_DE_WORKSHOP')).map((value) => <><ShowActivity activity={value} /> </>)}
         </ActivitiesWrapper>
       </LocationBox>
     </Main>
@@ -48,4 +50,8 @@ const ActivitiesWrapper = styled.div`
   height: 80%;
   padding: 10px;
   border: 1px solid #D7D7D7;
+  overflow-y: auto;
+  &::-webkit-scrollbar { 
+	display: none;
+}
 `;
