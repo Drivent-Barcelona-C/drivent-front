@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function HotelOption({
@@ -33,7 +32,7 @@ export default function HotelOption({
       background={selected.findIndex((i) => i === hotelId) !== -1 ? (color = '#FFEED2') : (color = '#EBEBEB')}
       onClick={() => toggle(hotelId)}
     >
-      <img src={image} />
+      <img src={image} aria-hidden alt='Image Hotel.' />
       <p>{name}</p>
 
       <Accommodation>Tipos de acomodação:</Accommodation>
