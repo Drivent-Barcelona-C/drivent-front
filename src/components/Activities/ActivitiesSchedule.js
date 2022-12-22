@@ -13,7 +13,7 @@ import useToken from '../../hooks/useToken';
 export default function ActivitiesSchedule() {
   const token = useToken();
   const { activities } = useContext(ActivitiesContext);
-  const [ activitiesDays, setActivitiesDays ] = useState([]);
+  const [activitiesDays, setActivitiesDays] = useState([]);
 
   async function listActivitiesDays() {
     try {
@@ -32,15 +32,23 @@ export default function ActivitiesSchedule() {
 
   useEffect(() => listActivitiesDays(), []);
 
-  return (
-    <ActivitiesWrapper>
-      {activities === null && <Message variant="h5">Primeiro, filtre pelo dia do evento:</Message>}
-      <DaysBox>
-        {activitiesDays && activitiesDays.map((data, index) => <ActivitiesDay key={index} date={data}/>)}
-      </DaysBox>
-      {activities !== null && <ActivitiesBox activities={activities}/>}
-    </ActivitiesWrapper>
-  );
+  if (activitiesDays.length === 0) {
+    return (
+      <ActivitiesWrapper>
+        <Message variant="h5">Ainda não existem atividades registradas para este evento!</Message>
+      </ActivitiesWrapper>
+    );
+  } else {
+    return (
+      <ActivitiesWrapper>
+        {activities === null && <Message variant="h5">Primeiro, filtre pelo dia do evento:</Message>}
+        <DaysBox>
+          {activitiesDays && activitiesDays.map((data, index) => <ActivitiesDay key={index} date={data} />)}
+        </DaysBox>
+        {activities !== null && <ActivitiesBox activities={activities} />}
+      </ActivitiesWrapper>
+    );
+  }
 }
 
 const Message = styled(Typography)`
