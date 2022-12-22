@@ -25,7 +25,6 @@ export default function HotelOption({
     setPickedHotel(index);
   }
   let filteredType = avaiable.filter((type) => type !== false);
-
   return (
     <Hotels
       background={selected.findIndex((i) => i === hotelId) !== -1 ? '#FFEED2' : '#EBEBEB'}
