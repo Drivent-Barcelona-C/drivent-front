@@ -52,6 +52,6 @@ const ActivitiesWrapper = styled.div`
   border: 1px solid #D7D7D7;
   overflow-y: auto;
   &::-webkit-scrollbar { 
-	display: none;
-}
+	  display: none;
+  }
 `;
