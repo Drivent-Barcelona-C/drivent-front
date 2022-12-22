@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function HotelOption({
@@ -34,11 +33,11 @@ export default function HotelOption({
       onClick={() => toggle(hotelId)}
     >
       <img src={image} />
-      <p>{name}</p>
+      <Title>{name}</Title>
 
       <Accommodation>Tipos de acomodação:</Accommodation>
       <AccommodationType>
-        <p>{filteredType.join(', ')}</p>
+        <Subtitle>{filteredType.join(', ')}</Subtitle>
       </AccommodationType>
       <Vacancies>Vagas Disponiveis:</Vacancies>
       <AvaiableRooms>{vacancies}</AvaiableRooms>
@@ -64,21 +63,28 @@ const Hotels = styled.div`
     width: 92%;
     border-radius: 4px;
   }
-  p {
-    color: #343434;
-    font-size: 20px;
-  }
+`;
+
+const Title = styled.div`
+  font-size: 20px;
+  color: #343434;
+  font-weight: 400;
+`;
+
+const Subtitle = styled.div`
+  font-size: 12px;
+  color: #3c3c3c;
 `;
 
 const Accommodation = styled.div`
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 15px;
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 const Vacancies = styled.div`
-  font-size: 10px;
-  font-weight: bold;
+  font-size: 12px;
+  font-weight: 700;
   margin-top: 15px;
 `;
 

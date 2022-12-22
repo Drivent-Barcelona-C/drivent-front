@@ -15,7 +15,6 @@ export default function ChooseHotel() {
   const [hotels, setHotels] = useState([]);
   const [selected, setSelected] = useState([]);
   let [color, setColor] = useState('#EBEBEB');
-  console.log(pickedHotel);
 
   const { getHotel } = useHotel();
   const { getBooking } = useBooking();
@@ -65,23 +64,25 @@ export default function ChooseHotel() {
         <>
           {pickedHotel < 0 ? (
             <IncludesHotel>
-              <p>Primeiro, escolha seu hotel</p>
-              {hotels.map((hotel, index) => (
-                <HotelOption
-                  name={hotel.name}
-                  image={hotel.image}
-                  hotelId={hotel.id}
-                  key={index}
-                  index={index}
-                  color={color}
-                  selected={selected}
-                  setSelected={setSelected}
-                  rooms={hotel.Rooms}
-                  vacancies={hotel.vacancies}
-                  avaiable={hotel.types}
-                  setPickedHotel={setPickedHotel}
-                />
-              ))}
+              <Title>Primeiro, escolha seu hotel</Title>
+              <ContainerHotels>
+                {hotels.map((hotel, index) => (
+                  <HotelOption
+                    name={hotel.name}
+                    image={hotel.image}
+                    hotelId={hotel.id}
+                    key={index}
+                    index={index}
+                    color={color}
+                    selected={selected}
+                    setSelected={setSelected}
+                    rooms={hotel.Rooms}
+                    vacancies={hotel.vacancies}
+                    avaiable={hotel.types}
+                    setPickedHotel={setPickedHotel}
+                  />
+                ))}
+              </ContainerHotels>
             </IncludesHotel>
           ) : (
             <ContainerRooms rooms={hotels[pickedHotel].Rooms} />
@@ -98,6 +99,19 @@ const IncludesHotel = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 90%;
+`;
+
+const Title = styled.div`
+  color: #8e8e8e;
+  font-size: 15px;
+  margin-top: 20px;
+`;
+
+const ContainerHotels = styled.div`
+  margin: 0 auto;
+  display: flex;
   width: 100%;
   height: 90%;
   p {
