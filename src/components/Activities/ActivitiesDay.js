@@ -55,5 +55,6 @@ const Day = styled.button`
   
   &:hover {
     ${props => props.activeDay ? 'none' : 'filter:brightness(0.8)'};
+    cursor: pointer;
   }
 `;

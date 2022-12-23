@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import useHasTicket from '../../hooks/api/useHasTicket';
-import useTicketTypes from '../../hooks/api/useTicketTypes';
 
 import AccessDeniedNotPaid from './AccessDeniedNotPaid';
 import AccessDeniedRemote from './AccessDeniedRemote';
@@ -9,12 +8,11 @@ import ActivitiesSchedule from './ActivitiesSchedule';
 
 export default function ActivitiesList() {
   const { ticket } = useHasTicket();
-  const { ticketType } = useTicketTypes();
 
   function accessType() {
-    if (ticketType && ticketType[0].isRemote) {
+    if (ticket && ticket.TicketType.isRemote) {
       return <AccessDeniedRemote />;
-    } else if (ticket && ticket.status === 'RESERVED') {
+    } else if (!ticket || ticket.status === 'RESERVED') {
       return <AccessDeniedNotPaid />;
     } else {
       return <ActivitiesSchedule />;
