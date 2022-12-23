@@ -38,6 +38,7 @@ export default function ActivitiesDay({ date, activeDay, setActiveDay }) {
 }
 
 const Day = styled.button`
+  font-family: 'Roboto', sans-serif;
   background-color: ${props => props.activeDay ? '#FFD37D' : '#E0E0E0'};
   border-style: ${props => props.activeDay ? 'none' : ''};
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);

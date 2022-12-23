@@ -40,8 +40,6 @@ export default function ResumeBooking({
 
 const ContainerResume = styled.div`
   p{
-    font-family: 'Roboto';
-    font-style: normal;
     font-weight: 400;
     font-size: 20px;
     color: #8E8E8E;
@@ -63,14 +61,12 @@ const ShowResume = styled.div`
     margin: 16px 14px 0 14px;
   }
   h1{
-    font-family: 'Roboto';
     font-weight: 400;
     font-size: 20px;
     color: #343434;
     margin: 10px 14px;
   }
   h2{
-    font-family: 'Roboto';
     font-weight: 700;
     font-size: 12px;
     line-height: 14px;
@@ -78,7 +74,6 @@ const ShowResume = styled.div`
     margin: 0 14px;
   }
   h3{
-    font-family: 'Roboto';
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;

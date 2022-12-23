@@ -83,12 +83,14 @@ const Accommodation = styled.div`
   font-size: 12px;
   margin-top: 15px;
   font-weight: 700;
+  color: #3c3c3c;
 `;
 
 const Vacancies = styled.div`
   font-size: 12px;
   font-weight: 700;
   margin-top: 15px;
+  color: #3c3c3c;
 `;
 
 const AccommodationType = styled.div`
@@ -100,6 +102,8 @@ const AccommodationType = styled.div`
 `;
 
 const AvaiableRooms = styled.div`
-  font-size: 10px;
+  font-weight: 400;
+  font-size: 12px;
   margin-top: 5px;
+  color: #3c3c3c;
 `;
