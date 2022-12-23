@@ -31,7 +31,7 @@ export default function Hotel() {
 }
 
 const Main = styled.div`
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 34px;
   font-weight: 400;
   line-height: 40px;
@@ -40,13 +40,13 @@ const Main = styled.div`
 `;
 
 const Container = styled.div`
+  font-family: 'Roboto', sans-serif;
   margin: 0 auto;
   width: 100%;
   height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Roboto';
 `;
 
 const NoPayment = styled.div`

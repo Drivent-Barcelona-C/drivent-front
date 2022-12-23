@@ -132,6 +132,7 @@ export default function ChooseHotel() {
 }
 
 const IncludesHotel = styled.div`
+  font-family: 'Roboto', sans-serif;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -140,7 +141,8 @@ const IncludesHotel = styled.div`
 
 const Title = styled.div`
   color: #8e8e8e;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 20px;
   margin-top: 20px;
 `;
 
