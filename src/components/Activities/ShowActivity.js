@@ -12,6 +12,7 @@ dayjs.extend(duration);
 
 export default function ShowActivity({ activity }) {
   const vacancies = activity.capacity - activity.activityBookings;
+
   const { postActivity } = useSubscribeActivity();
 
   const { activities, setActivities } = useContext(ActivitiesContext);
@@ -46,19 +47,21 @@ export default function ShowActivity({ activity }) {
       </div>
       {activity.isUserEnrolled ?
         <ButtonIconBox>
-          <BsCheckCircle onClick={() => toast('Você já esta inscrito nesta atividade!')} />
-          <p className='vacanciesActivity'>Inscrito</p>
+          <div onClick={() => toast('Você já esta inscrito nesta atividade!')}>
+            <BsCheckCircle />
+            <p className='vacanciesActivity'>Inscrito</p>
+          </div>
         </ButtonIconBox> :
         <ButtonIconBox soldOut={vacancies < 1}>
           {vacancies > 1 ?
-            <>
-              <BsBoxArrowInRight onClick={() => subscribleActivity(activity.id)} />
+            <div onClick={() => subscribleActivity(activity.id)}>
+              <BsBoxArrowInRight />
               <p className='vacanciesActivity'>{vacancies} vagas</p>
-            </> :
-            <>
-              <BsXCircle onClick={() => toast('Ingressos esgotados!')} />
+            </div> :
+            <div onClick={() => toast('Ingressos esgotados!')}>
+              <BsXCircle />
               <p className='vacanciesActivity'> Esgotado</p>
-            </>}
+            </ div>}
         </ButtonIconBox>}
     </ BoxActivity>
   );
@@ -115,7 +118,14 @@ const ButtonIconBox = styled.div`
   justify-content: center;
   border-left: 1px solid #CFCFCF;
   color: #078632;
-  cursor: pointer;
+  
+  div{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   
   .vacanciesActivity{
     font-weight: 400;
