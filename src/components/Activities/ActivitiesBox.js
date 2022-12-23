@@ -9,19 +9,19 @@ export default function ActivitiesBox({ activities }) {
       <LocationBox>
         <Location variant="h6">Auditório Principal</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'AUDITORIO_PRINCIPAL')).map((value) => <><ShowActivity activity={value} /> </>)}
+          {(activities.filter(data => data.location === 'AUDITORIO_PRINCIPAL')).map((value, index) => <><ShowActivity key={value.id * index} activity={value} /> </>)}
         </ActivitiesWrapper>
       </LocationBox>
       <LocationBox>
         <Location variant="h6">Auditório Lateral</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'AUDITORIO_LATERAL')).map((value) => <><ShowActivity activity={value} /> </>)}
+          {(activities.filter(data => data.location === 'AUDITORIO_LATERAL')).map((value, index) => <><ShowActivity key={value.id * index} activity={value} /> </>)}
         </ActivitiesWrapper>
       </LocationBox>
       <LocationBox>
         <Location variant="h6">Sala de Workshop</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'SALA_DE_WORKSHOP')).map((value) => <><ShowActivity activity={value} /> </>)}
+          {(activities.filter(data => data.location === 'SALA_DE_WORKSHOP')).map((value, index) => <><ShowActivity key={value.id * index} activity={value} /> </>)}
         </ActivitiesWrapper>
       </LocationBox>
     </Main>

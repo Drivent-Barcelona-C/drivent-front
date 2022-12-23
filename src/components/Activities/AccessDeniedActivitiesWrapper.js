@@ -7,6 +7,7 @@ export const AccessDeniedActivitiesWrapper = styled.div`
   width: 100%;
   height: 80%;
   flex-wrap: wrap;
+  
   > div {
     width: calc(50% - 20px);
     margin: 0 10px 0 0;

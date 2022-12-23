@@ -35,7 +35,7 @@ function Rooms({ room, filled, pickedUser, setPickedUser }) {
   if (filled === room.capacity) {
     return (
       <>
-        <StyledRooms className='roomFull'>
+        <StyledRooms className='roomFull' onClick={() => toast('Este quarto está lotado!')}>
           {room.name}
           <span>
             <ShowVacancies vacancies={room.capacity} filled={filled} />
@@ -75,7 +75,7 @@ export default function ContainerRooms({
     if (pickedUser !== 0 && reserve) {
       const promise = postBooking({ roomId: pickedUser });
       promise
-        .then((res) => {
+        .then(() => {
           toast('Quarto reservado com sucesso!');
           setPickedUser(0);
           window.location.assign('/dashboard/hotel');
