@@ -10,7 +10,7 @@ export default function Hotel() {
       <>
         <Main> Escolha hotel e quarto</Main>
         <Container>
-          <NoPayment>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</NoPayment>
+          <NoPayment>Sua modalidade de ingresso não inclui hospedagem. Prossiga para a escolha de atividades</NoPayment>
         </Container>
       </>
     );
@@ -18,7 +18,7 @@ export default function Hotel() {
 
   return (
     <>
-      <Main> Escolha hotel e quarto</Main>
+      <Main>Escolha hotel e quarto</Main>
       {ticket.status === 'PAID' ? (
         <ChooseHotel />
       ) : (
@@ -31,7 +31,7 @@ export default function Hotel() {
 }
 
 const Main = styled.div`
-  font-family: Roboto;
+  font-family: 'Roboto';
   font-size: 34px;
   font-weight: 400;
   line-height: 40px;
@@ -46,7 +46,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Roboto;
+  font-family: 'Roboto';
 `;
 
 const NoPayment = styled.div`

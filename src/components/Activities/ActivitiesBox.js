@@ -9,19 +9,19 @@ export default function ActivitiesBox({ activities }) {
       <LocationBox>
         <Location variant="h6">Auditório Principal</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'AUDITORIO_PRINCIPAL')).map((value) => <><ShowActivity key={value.id} activity={value} /> </>)}
+          {(activities.filter(data => data.location === 'AUDITORIO_PRINCIPAL')).map((value) => <ShowActivity key={value.id} activity={value} />)}
         </ActivitiesWrapper>
       </LocationBox>
       <LocationBox>
         <Location variant="h6">Auditório Lateral</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'AUDITORIO_LATERAL')).map((value) => <><ShowActivity key={value.id} activity={value} /> </>)}
+          {(activities.filter(data => data.location === 'AUDITORIO_LATERAL')).map((value) => <ShowActivity key={value.id} activity={value} />)}
         </ActivitiesWrapper>
       </LocationBox>
       <LocationBox>
         <Location variant="h6">Sala de Workshop</Location>
         <ActivitiesWrapper>
-          {(activities.filter(data => data.location === 'SALA_DE_WORKSHOP')).map((value) => <><ShowActivity key={value.id} activity={value} /> </>)}
+          {(activities.filter(data => data.location === 'SALA_DE_WORKSHOP')).map((value) => <ShowActivity key={value.id} activity={value} />)}
         </ActivitiesWrapper>
       </LocationBox>
     </Main>
@@ -47,10 +47,13 @@ const Location = styled(Typography)`
 `;
 
 const ActivitiesWrapper = styled.div`
-  height: 80%;
+  min-height: 100%;
   padding: 10px;
   border: 1px solid #D7D7D7;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   &::-webkit-scrollbar { 
 	  display: none;
   }

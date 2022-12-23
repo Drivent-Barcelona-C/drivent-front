@@ -32,7 +32,9 @@ export default function ChooseHotel() {
     const promise = getBooking();
     promise.then((res) => {
       setBookingUser(res);
-      setStatusBooking(true);
+      if (res.id) {
+        setStatusBooking(true);
+      }
     });
   }, [changeRoom]);
 
