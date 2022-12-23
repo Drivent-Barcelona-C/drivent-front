@@ -13,11 +13,11 @@ export default function ActivitiesList() {
 
   function accessType() {
     if (ticketType && ticketType[0].isRemote) {
-      return <AccessDeniedRemote/>;
+      return <AccessDeniedRemote />;
     } else if (ticket && ticket.status === 'RESERVED') {
-      return <AccessDeniedNotPaid/>;
+      return <AccessDeniedNotPaid />;
     } else {
-      return <ActivitiesSchedule/>;
+      return <ActivitiesSchedule />;
     }
   }
 

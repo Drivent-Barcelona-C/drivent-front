@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import api from '../../services/api';
 import useToken from '../../hooks/useToken';
 import ActivitiesContext from '../../contexts/ActivitiesContext';
@@ -50,9 +50,9 @@ const Day = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  border: none;
+  
   &:hover {
     ${props => props.activeDay ? 'none' : 'filter:brightness(0.8)'};
   }
 `;
-
