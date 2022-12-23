@@ -16,7 +16,7 @@ export default function ActivitiesDay({ date, activeDay, setActiveDay }) {
       const response = await api.get('/activities', {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
       const dayActivities = response.data[date];
       setActiveDay(date);
@@ -28,10 +28,7 @@ export default function ActivitiesDay({ date, activeDay, setActiveDay }) {
   }
 
   return (
-    <Day
-      onClick={() => listActivities()}
-      activeDay={activeDay === date}
-    >
+    <Day onClick={() => listActivities()} activeDay={activeDay === date}>
       {dayjs(date).locale('pt-br').format('ddd, DD/MM')}
     </Day>
   );
@@ -39,8 +36,8 @@ export default function ActivitiesDay({ date, activeDay, setActiveDay }) {
 
 const Day = styled.button`
   font-family: 'Roboto', sans-serif;
-  background-color: ${props => props.activeDay ? '#FFD37D' : '#E0E0E0'};
-  border-style: ${props => props.activeDay ? 'none' : ''};
+  background-color: ${(props) => (props.activeDay ? '#FFD37D' : '#E0E0E0')};
+  border-style: ${(props) => (props.activeDay ? 'none' : '')};
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   color: #000000;
@@ -52,9 +49,9 @@ const Day = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  
+
   &:hover {
-    ${props => props.activeDay ? 'none' : 'filter:brightness(0.8)'};
+    ${(props) => (props.activeDay ? 'none' : 'filter:brightness(0.8)')};
     cursor: pointer;
   }
 `;
