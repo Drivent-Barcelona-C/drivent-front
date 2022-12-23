@@ -147,8 +147,8 @@ export default function ContainerRooms({
 }
 
 const StyledContainerRooms = styled.div`
+  font-family: 'Roboto', sans-serif;
   p{
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -185,7 +185,6 @@ const StyledRooms = styled.div`
   border: 1px solid #CECECE;
   border-radius: 10px;
   margin-top: 8px;
-  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 20px;
   color: #454545;
