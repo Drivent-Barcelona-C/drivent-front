@@ -10,7 +10,7 @@ export default function Hotel() {
       <>
         <Main> Escolha hotel e quarto</Main>
         <Container>
-          <NoPayment>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</NoPayment>
+          <NoPayment>Sua modalidade de ingresso não inclui hospedagem. Prossiga para a escolha de atividades</NoPayment>
         </Container>
       </>
     );
@@ -18,7 +18,7 @@ export default function Hotel() {
 
   return (
     <>
-      <Main> Escolha hotel e quarto</Main>
+      <Main>Escolha hotel e quarto</Main>
       {ticket.status === 'PAID' ? (
         <ChooseHotel />
       ) : (

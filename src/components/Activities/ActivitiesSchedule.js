@@ -21,7 +21,7 @@ export default function ActivitiesSchedule() {
       const response = await api.get('/activities', {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
       const eventDays = Object.keys(response.data);
       return setActivitiesDays(eventDays);
@@ -33,27 +33,22 @@ export default function ActivitiesSchedule() {
 
   useEffect(() => listActivitiesDays(), []);
 
-  if (activitiesDays.length === 0) {
-    return (
-      <ActivitiesWrapper>
-        <Message variant="h5">Ainda não existem atividades registradas para este evento!</Message>
-      </ActivitiesWrapper>
-    );
-  } else {
-    return (
-      <ActivitiesWrapper>
-        {activities === null && <Message variant="h5">Primeiro, filtre pelo dia do evento:</Message>}
-        <DaysBox>
-          {activitiesDays && activitiesDays.map((data, index) => <ActivitiesDay key={index} date={data} activeDay={activeDay} setActiveDay={setActiveDay} />)}
-        </DaysBox>
-        {activities !== null && <ActivitiesBox activities={activities} />}
-      </ActivitiesWrapper>
-    );
-  }
+  return (
+    <ActivitiesWrapper>
+      {activities === null && <Message variant="h5">Primeiro, filtre pelo dia do evento:</Message>}
+      <DaysBox>
+        {activitiesDays &&
+          activitiesDays.map((data, index) => (
+            <ActivitiesDay key={index} date={data} activeDay={activeDay} setActiveDay={setActiveDay} />
+          ))}
+      </DaysBox>
+      {activities !== null && <ActivitiesBox activities={activities} />}
+    </ActivitiesWrapper>
+  );
 }
 
 const Message = styled(Typography)`
-  color: #8E8E8E;
+  color: #8e8e8e;
   font-size: 20px !important;
   line-height: 23px !important;
   margin-bottom: 23px !important;

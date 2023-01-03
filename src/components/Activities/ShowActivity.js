@@ -68,13 +68,11 @@ export default function ShowActivity({ activity }) {
 }
 
 const BoxActivity = styled.div`
-  max-width: 265px;
   background: #F1F1F1;
   border-radius: 5px;
   padding: 10px 0 10px 10px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
   p{
     font-weight: 700;
     font-size: 12px;
