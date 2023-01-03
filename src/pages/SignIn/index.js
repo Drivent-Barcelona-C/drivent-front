@@ -14,6 +14,8 @@ import UserContext from '../../contexts/UserContext';
 
 import useSignIn from '../../hooks/api/useSignIn';
 
+import submitAuth from '../../components/OAuth/SubmitAuth';
+
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,6 +56,9 @@ export default function SignIn() {
       </Row>
       <Row>
         <Link to="/enroll">Não possui login? Inscreva-se</Link>
+      </Row>
+      <Row onClick={(e) => submitAuth(e)}>
+        GitHub
       </Row>
     </AuthLayout>
   );
