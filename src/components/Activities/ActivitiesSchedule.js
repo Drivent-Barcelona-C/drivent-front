@@ -26,7 +26,6 @@ export default function ActivitiesSchedule() {
       const eventDays = Object.keys(response.data);
       return setActivitiesDays(eventDays);
     } catch (error) {
-      console.error(error);
       setActivitiesDays([]);
     }
   }
