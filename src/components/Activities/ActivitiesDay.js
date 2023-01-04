@@ -22,7 +22,6 @@ export default function ActivitiesDay({ date, activeDay, setActiveDay }) {
       setActiveDay(date);
       return setActivities(dayActivities);
     } catch (error) {
-      console.error(error);
       setActivities([]);
     }
   }
