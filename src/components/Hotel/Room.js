@@ -64,6 +64,7 @@ export default function ContainerRooms({
   changeRoom = false,
   setChangeRoom,
   bookingUser,
+  setStatusBooking,
 }) {
   const [pickedUser, setPickedUser] = useState(0);
   const [reserve, setReserve] = useState(false);
@@ -78,7 +79,7 @@ export default function ContainerRooms({
         .then(() => {
           toast('Quarto reservado com sucesso!');
           setPickedUser(0);
-          window.location.assign('/dashboard/hotel');
+          setStatusBooking(true);
         })
         .catch(() => {
           toast('Não foi possivel reservar quarto!');
