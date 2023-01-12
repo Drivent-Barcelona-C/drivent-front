@@ -21,7 +21,7 @@ export default function Payment() {
       {enrollment ? (
         <PaymentOrTicketScreen />
       ) : (
-        <Message>'Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso'</Message>
+        <Message>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</Message>
       )}
     </>
   );
@@ -34,4 +34,5 @@ const Message = styled.div`
   font-size: 20px;
   margin: 27% auto;
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 `;

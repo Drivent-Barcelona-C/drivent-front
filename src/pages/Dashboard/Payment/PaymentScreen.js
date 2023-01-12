@@ -56,6 +56,7 @@ const PaymentMessage = styled.div`
 const Pay = styled.div`
   display: flex;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
   div {
     margin-right: 15px;
   }

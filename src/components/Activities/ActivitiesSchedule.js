@@ -12,20 +12,22 @@ import useToken from '../../hooks/useToken';
 
 export default function ActivitiesSchedule() {
   const token = useToken();
-  const { activities } = useContext(ActivitiesContext);
+  const { activities, setActivities } = useContext(ActivitiesContext);
   const [activitiesDays, setActivitiesDays] = useState([]);
   const [activeDay, setActiveDay] = useState(null);
 
   async function listActivitiesDays() {
+    setActivities(null);
     try {
       const response = await api.get('/activities', {
         headers: {
           Authorization: `Bearer ${token}`,
-        },
+        }
       });
       const eventDays = Object.keys(response.data);
       return setActivitiesDays(eventDays);
     } catch (error) {
+      console.error(error);
       setActivitiesDays([]);
     }
   }
