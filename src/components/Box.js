@@ -10,6 +10,7 @@ export default styled.div`
   border-radius: 20px;
   background-color: ${(props) => props.background || '#FFEED2'};
 
+  font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;

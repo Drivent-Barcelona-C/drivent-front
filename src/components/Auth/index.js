@@ -13,6 +13,7 @@ export const StyledContainer = styled(Container)`
 export const Title = styled.h1`
   font-size: 32px;
   margin-top: 10px;
+  font-family: 'Roboto', sans-serif;
 `;
 
 export const Label = styled.h1`
