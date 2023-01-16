@@ -1,6 +1,9 @@
-FROM node:16.15
-WORKDIR /usr/src/drivent
+FROM node:16
+WORKDIR /drivent-front
 COPY ./package*.json ./
 COPY ./.husky ./
 RUN npm install
-COPY . .
+COPY . . 
+ENV PORT=4001
+EXPOSE 4001
+CMD ["npm", "start"]
