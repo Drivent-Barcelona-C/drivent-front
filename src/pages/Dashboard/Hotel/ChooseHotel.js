@@ -36,12 +36,12 @@ export default function ChooseHotel() {
         setStatusBooking(true);
       }
     });
-  }, [changeRoom]);
+  }, [changeRoom, statusBooking]);
 
   if (statusBooking) {
     let hotelId = 0;
     hotels.forEach((hotel, index) => {
-      if (hotel.id === bookingUser.Room.hotelId) {
+      if (hotel.id === bookingUser?.Room?.hotelId) {
         hotelId = index;
       }
     });
@@ -122,7 +122,7 @@ export default function ChooseHotel() {
               ))}
             </ContainerHotels>
           </IncludesHotel>
-          {pickedHotel >= 0 ? <ContainerRooms rooms={hotels[pickedHotel].Rooms} /> : ''}
+          {pickedHotel >= 0 ? <ContainerRooms rooms={hotels[pickedHotel].Rooms} setStatusBooking={setStatusBooking} /> : ''}
         </>
       ) : (
         ''

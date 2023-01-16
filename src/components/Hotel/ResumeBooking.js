@@ -28,10 +28,10 @@ export default function ResumeBooking({
     <ContainerResume>
       <p>Você já escolheu seu quarto:</p>
       <ShowResume>
-        <img src={hotel.image} aria-hidden alt='Image Hotel.' />
-        <h1>{hotel.name}</h1>
+        <img src={hotel?.image} aria-hidden alt='Image Hotel.' />
+        <h1>{hotel?.name}</h1>
         <h2>Quarto reservado</h2>
-        <h3>{bookingUser.Room.name} ({typeRoom(bookingUser.Room.capacity)})</h3>
+        <h3>{bookingUser?.Room?.name} ({typeRoom(bookingUser?.Room?.capacity)})</h3>
         <h2>Pessoas no seu quarto</h2>
         {peopleRoom === 1 ? <h3>Somente você</h3> : <h3>Você e mais {peopleRoom - 1} </h3>}
       </ShowResume>
